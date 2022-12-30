@@ -196,11 +196,25 @@ public class Gun : MonoBehaviour
          *  - Number / spread of shotgun bullets : shotgunBullets, shotgunSpread
          * Implement both single shot and shotgun (swap by pressing <SPACE> by default)
          */
-        
-        SpawnBullet(
-            new Vector3{ x = 0.0f, y = 0.0f, z = 0.0f }, 
-            Quaternion.Euler(0.0f, 0.0f, 0.0f)
-        );
+
+        var position = director.position;
+        if (shotgun)
+        {
+            SpawnBullet(
+                new Vector3 { x = position.x, y = position.y, z = position.z },
+                director.rotation
+            );
+        }
+        else
+        {
+            for (int i = -2; i < 5; i++)
+            {
+                SpawnBullet(
+                    new Vector3 { x = position.x, y = position.y, z = position.z },
+                    director.rotation * Quaternion.Euler(0,i*2,0)
+                );
+            }
+        }
     }
 
     /// <summary>
